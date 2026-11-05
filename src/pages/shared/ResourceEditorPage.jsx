@@ -60,7 +60,13 @@ export default function ResourceEditorPage({ resource }) {
         {loading && isEditing ? <LoadingState label={`Cargando ${resource.singular}…`} /> : error ? <ErrorState message={error} onRetry={reload} /> : (
           <>
             {actionError && <p className="form-error" role="alert">{actionError}</p>}
-            <ResourceForm resource={resource} initialValues={record} onSubmit={handleSubmit} submitting={submitting} />
+            <ResourceForm
+              resource={resource}
+              initialValues={record}
+              onSubmit={handleSubmit}
+              submitting={submitting}
+              isEditing={isEditing}
+            />
             <div className="secondary-actions">
               <Link className="button button-secondary" to={`/${resource.path}`}>Cancelar</Link>
               {isEditing && <button className="button button-danger" onClick={handleDelete}>Eliminar</button>}

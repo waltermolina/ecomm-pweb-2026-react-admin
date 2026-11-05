@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import FormField from '../atoms/FormField.jsx';
 
-export default function ResourceForm({ resource, initialValues = {}, onSubmit, submitting }) {
+export default function ResourceForm({
+  resource,
+  initialValues = {},
+  onSubmit,
+  submitting,
+  isEditing = false,
+}) {
   const [values, setValues] = useState({});
   const [error, setError] = useState('');
-  const fields = resource.fields.filter(
-    (field) => !(field.createOnly && (initialValues.id ?? initialValues._id)),
-  );
+  const fields = resource.fields.filter((field) => !(field.createOnly && isEditing));
 
   useEffect(() => {
     setValues(Object.fromEntries(fields.map((field) => [field.name, initialValues[field.name] ?? ''])));
